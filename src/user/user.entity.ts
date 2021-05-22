@@ -12,13 +12,15 @@ import {
 } from '@mikro-orm/core';
 import { Article } from '../article/article.entity';
 import { UserRepository } from './user.repository';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @Entity()
+@ObjectType()
 export class User {
-
   [EntityRepositoryType]?: UserRepository;
 
   @PrimaryKey()
+  @Field(() => ID)
   id: number;
 
   @Property()
@@ -40,13 +42,21 @@ export class User {
   @ManyToMany({ hidden: true })
   favorites = new Collection<Article>(this);
 
-  @ManyToMany({ entity: () => User, inversedBy: u => u.followed, owner: true, pivotTable: 'user_to_follower', joinColumn: 'follower', inverseJoinColumn: 'following', hidden: true })
+  @ManyToMany({
+    entity: () => User,
+    inversedBy: (u) => u.followed,
+    owner: true,
+    pivotTable: 'user_to_follower',
+    joinColumn: 'follower',
+    inverseJoinColumn: 'following',
+    hidden: true,
+  })
   followers = new Collection<User>(this);
 
-  @ManyToMany(() => User, u => u.followers, { hidden: true })
+  @ManyToMany(() => User, (u) => u.followers, { hidden: true })
   followed = new Collection<User>(this);
 
-  @OneToMany(() => Article, article => article.author, { hidden: true })
+  @OneToMany(() => Article, (article) => article.author, { hidden: true })
   articles = new Collection<Article>(this);
 
   constructor(username: string, email: string, password: string) {
@@ -57,10 +67,13 @@ export class User {
 
   toJSON(user?: User) {
     const o = wrap(this).toObject();
-    o.image = this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg';
-    o.following = user && user.followers.isInitialized() ? user.followers.contains(this) : false; // TODO or followed?
+    o.image =
+      this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg';
+    o.following =
+      user && user.followers.isInitialized()
+        ? user.followers.contains(this)
+        : false; // TODO or followed?
 
     return o;
   }
-
 }

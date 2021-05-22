@@ -1,14 +1,20 @@
-import { HttpException, HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
-import { NextFunction, Request, Response } from 'express';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NestMiddleware,
+} from '@nestjs/common';
+import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { SECRET } from '../config';
+import { AppRequest } from '../shared/typings/AppRequest';
 import { UserService } from './user.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
 
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(req: AppRequest, res: Response, next: NextFunction) {
     const authHeaders = req.headers.authorization;
     if (authHeaders && (authHeaders as string).split(' ')[1]) {
       const token = (authHeaders as string).split(' ')[1];
@@ -22,7 +28,6 @@ export class AuthMiddleware implements NestMiddleware {
       req.user = user.user;
       req.user.id = decoded.id;
       next();
-
     } else {
       throw new HttpException('Not authorized.', HttpStatus.UNAUTHORIZED);
     }

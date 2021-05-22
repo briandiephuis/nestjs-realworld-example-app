@@ -3,11 +3,11 @@ import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 
 const config = {
-  type: 'mysql',
+  type: 'postgresql',
   host: 'localhost',
-  port: 3307,
-  username: 'root',
-  password: '',
+  port: 5432,
+  username: 'postgres',
+  password: 'postgres',
   dbName: 'nestjsrealworld',
   entities: ['dist/**/*.entity.js'],
   entitiesTs: ['src/**/*.entity.ts'],
