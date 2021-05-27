@@ -2,6 +2,156 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Article {
+  body: String!
+
+  """Get the `Comments` for an `Article`"""
+  comments: [Comment!]!
+  description: String!
+  favoritesCount: Int!
+  id: ID!
+  slug: String!
+  title: String!
+}
+
+input ArticleInput {
+  slug: String!
+}
+
+type Comment {
+  body: String!
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+input CreateArticleInput {
+  body: String!
+  description: String!
+  tagList: [String!]!
+  title: String!
+}
+
+input CreateCommentInput {
+  """Slug identifying the parent `Article` for this `Comment`"""
+  articleSlug: String!
+  body: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteArticleInput {
+  slug: String!
+}
+
+input DeleteCommentInput {
+  """Slug identifying the parent `Article` for this `Comment`"""
+  articleSlug: String!
+  commentId: ID!
+}
+
+input DeleteUserInput {
+  userId: ID!
+}
+
+type DeletedArticle {
+  deletedArticleId: ID!
+}
+
+type DeletedComment {
+  deletedCommentId: ID!
+  parentArticleId: ID!
+}
+
+type DeletedUser {
+  deletedUserId: ID!
+}
+
+input FavoriteArticleInput {
+  slug: String!
+}
+
+type Mutation {
+  """Add a `Comment` to an `Article`"""
+  addComment(input: CreateCommentInput!): Comment!
+
+  """Create an `Article`"""
+  createArticle(input: CreateArticleInput!): Article!
+
+  """Create a `User`"""
+  createUser(input: CreateUserInput!): User!
+
+  """Delete an `Article`"""
+  deleteArticle(input: DeleteArticleInput!): DeletedArticle!
+
+  """Remove a `Comment` of an `Article`"""
+  deleteComment(input: DeleteCommentInput!): DeletedComment!
+
+  """Deleate a `User`"""
+  deleteUser(input: DeleteUserInput!): DeletedUser!
+
+  """Favorite an `Article`"""
+  favoriteArticle(input: FavoriteArticleInput!): Article!
+
+  """Unfavorite an `Article`"""
+  unFavoriteArticle(input: UnFavoriteArticleInput!): Article!
+
+  """Update an `Article`"""
+  updateArticle(input: UpdateArticleInput!): Article!
+
+  """Update the signed in `User`"""
+  updateMyUser(input: UpdateMyUserInput!): User!
+}
+
 type Query {
+  """Get one `Article` by its slug"""
+  article(input: ArticleInput!): Article!
+
+  """The signed-in `User`"""
+  me: User!
   root: String!
+
+  """Get all `Tags`"""
+  tags: [Tag!]!
+}
+
+type Tag {
+  id: ID!
+  tag: String!
+}
+
+input UnFavoriteArticleInput {
+  slug: String!
+}
+
+input UpdateArticleInput {
+  body: String!
+  description: String!
+  slug: String!
+  tagList: [String!]!
+  title: String!
+}
+
+input UpdateMyUserInput {
+  bio: String!
+  email: String!
+  image: String!
+  username: String!
+}
+
+type User {
+  articles: [Article!]!
+  bio: String!
+  id: ID!
+  image: String!
+  username: String!
 }

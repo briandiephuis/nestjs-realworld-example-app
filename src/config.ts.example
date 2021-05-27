@@ -1,1 +1,16 @@
-export const SECRET = 'secret-key';
+import { Algorithm } from 'jsonwebtoken';
+
+/** Secret key to sign and validate auth tokens */
+export const JWT_SECRET = 'secret-key';
+
+/** JWT signing and verification Algorithm */
+export const JWT_ALGORITHM: Algorithm = 'HS256';
+
+/** Cookie property name for the refresh token */
+export const REFRESH_COOKIE_PROPERTY = 'refresh';
+
+/** Seconds -> 7 days */
+export const REFRESH_TOKEN_EXPIRY = 7 * 24 * 60 * 60;
+
+/** Seconds -> 10 minutes */
+export const ACCESS_TOKEN_EXPIRY = 10 * 60;

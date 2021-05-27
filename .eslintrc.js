@@ -1,16 +1,16 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaVersion: 2020,
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'
-  ],
+  plugins: ['prettier', '@typescript-eslint/eslint-plugin', 'simple-import-sort', 'unused-imports'],
   extends: [
+    'prettier',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
   ],
   root: true,
   env: {
@@ -18,9 +18,15 @@ module.exports = {
     jest: true,
   },
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    'prettier/prettier': 'error',
+    'sort-imports': 'off',
+    "simple-import-sort/imports": "error",
+    'unused-imports/no-unused-imports': 'error',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        ignoreRestSiblings: true,
+      },
+    ],
   },
 };
