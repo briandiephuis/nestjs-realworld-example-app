@@ -96,3 +96,11 @@ Signing out can be achieved by sending a POST request to `/auth/sign-out` which 
 Manually forcing a sign-out on all devices for a specific user can be handled through `/auth/force-sign-out`. Note that this will only invalidate previously generatated __refresh tokens__ for this user. Currently valid access tokens will remain valid for their (relatively short) lifetime.
 
 This approach does not require a stateful mechanism to (in)validate tokens without loosing a means to ban users after their short-lived access token expires. If immediate bans are a requirement, token based auth is probably not be the right tool for that job.
+
+## Example queries and mutations
+
+Example queries are provided as an [Insomnia Git Sync](https://support.insomnia.rest/article/193-git-sync) here: https://github.com/briandiephuis/nestjs-realworld-example-app-insomnia
+
+⚠️ Don't forget to set the environment to `Localhost`
+
+Authentication is handled through [chaining of request](https://support.insomnia.rest/article/175-chaining-requests) using the `Sign In` call, parsed as a `Response => Body Attribute`. See the `Bearer` tab of the `Me` query for an example.
