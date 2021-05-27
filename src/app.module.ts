@@ -18,14 +18,17 @@ import { AppRequest } from './typings/AppRequest';
     MikroOrmModule.forRoot(),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
-      sortSchema: true, // Minimize git changes -> schema is generated for documentation & code reviews
-      context: ({ req, res, connection }: { req: AppRequest; res: Response; connection: ConnectionContext }) => ({
-        // em: RequestContext.create(??orm.em, ??),
-        connection,
-        // loaders: createLoaders(req),
-        req,
-        res,
-      }),
+      sortSchema: true, // Minimize git changes -> schema is generated as documentation & for code reviews
+      context: ({ req, res, connection }: { req: AppRequest; res: Response; connection: ConnectionContext }) => {
+        console.log(req);
+        return {
+          // em: RequestContext.create(??orm.em, ??),
+          connection,
+          // loaders: createLoaders(req),
+          req,
+          res,
+        };
+      },
       cors: false, // Cors should be handled by NestJS, not the Apollo Server
       debug: process.env.NODE_ENV !== 'production',
       playground: process.env.NODE_ENV !== 'production',

@@ -3,6 +3,7 @@
         "favorited",
         "inversed",
         "jsonwebtoken",
+        "kubernetes",
         "mikro",
         "nestjsrealworld",
         "postgresql"

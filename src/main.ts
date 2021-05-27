@@ -17,4 +17,6 @@ async function bootstrap(): Promise<void> {
   await app.listen(8000);
 }
 
+// Let the server fail if it fails. Server management (e.g. Kubernetes) should know this and handle
+// accordingly (i.e. restart it)
 bootstrap();
