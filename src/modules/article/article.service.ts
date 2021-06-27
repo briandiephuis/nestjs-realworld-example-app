@@ -1,4 +1,4 @@
-import { wrap } from '@mikro-orm/core';
+import { Collection, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
@@ -22,6 +22,10 @@ export class ArticleService {
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
   ) {}
+
+  async findByAuthorId(userId: number): Promise<Article[]> {
+    return this.articleRepository.find({ authorId: userId });
+  }
 
   // async findAll(userId: number, query: any): Promise<IArticlesRO> {
   //   const user = userId
@@ -92,7 +96,6 @@ export class ArticleService {
   //     },
   //   );
 
-  //   console.log('findFeed', { articles: res[0], articlesCount: res[1] });
   //   return {
   //     articles: res[0].map((a) => a.toJSON(user)),
   //     articlesCount: res[1],
@@ -130,9 +133,9 @@ export class ArticleService {
     return article;
   }
 
-  async findComments(slug: string): Promise<Comment[]> {
+  async findComments(slug: string): Promise<Collection<Comment, unknown>> {
     const article = await this.articleRepository.findOne({ slug }, ['comments']);
-    return article.comments.getItems();
+    return article.comments;
   }
 
   async create(userId: number, input: CreateArticleInput): Promise<Article> {

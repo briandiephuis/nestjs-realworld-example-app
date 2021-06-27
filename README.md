@@ -1,6 +1,6 @@
 # ![NestJS](project-logo.png)
 
-> ### NestJS + MikroORM codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) API spec.
+> ### NestJS + MikroORM codebase containing real world examples (CRUD, auth, advanced patterns, etc) that translate the [RealWorld](https://github.com/gothinkster/realworld-example-apps) API spec to GraphQL.
 
 > Rewrite of https://github.com/mikro-orm/nestjs-realworld-example-app to GraphQL.
 
@@ -75,7 +75,7 @@ More information regarding the project can be found here https://github.com/goth
   ```
 
 - View automatically generated GraphQL schema in the `./schema.gql` file or the API docs in the GraphQL Playground at `http://localhost:8000/graphql`
-- Run e2e tests from the `gothinkster/realworld` repository with `yarn test:e2e`
+- [TODO] Run e2e tests from the `gothinkster/realworld` repository with `yarn test:e2e`
 
 ---
 

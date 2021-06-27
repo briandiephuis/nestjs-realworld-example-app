@@ -39,7 +39,6 @@ export class AuthController {
     @Response() res: ExpressResponse,
     @Body() body?: SignInDto,
   ): Promise<ExpressResponse<SignInPayload>> {
-    console.log('body', body);
     // Verify credentials and check if user is not blocked
     if (!body?.email || !body?.password) {
       throw new BadRequestException('Email and password fields are mandatory without a refresh token');
@@ -47,7 +46,6 @@ export class AuthController {
 
     // Fetch user from db
     const user = await this.userRepository.findOne({ email: body.email });
-    console.log(user, body.password);
     // Throw an error if the user was not found (meaning the email was invalid) or if the password hash-compare fails
     if (!user || !compareSync(body.password, user.password)) {
       throw new ForbiddenException('Invalid credentials');

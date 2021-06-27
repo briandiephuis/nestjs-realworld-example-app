@@ -4,9 +4,6 @@
 
 type Article {
   body: String!
-
-  """Get the `Comments` for an `Article`"""
-  comments: [Comment!]!
   description: String!
   favoritesCount: Int!
   id: ID!
@@ -150,6 +147,9 @@ input UpdateMyUserInput {
 
 type User {
   articles: [Article!]!
+
+  """`Articles` written by this `User`"""
+  articlesWithoutDataloader: [Article!]!
   bio: String!
   id: ID!
   image: String!

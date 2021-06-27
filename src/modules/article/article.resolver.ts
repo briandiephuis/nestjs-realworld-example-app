@@ -1,7 +1,6 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { MyUser } from '../../decorators/my-user.decorator';
-import { Comment } from '../comment/comment.entity';
 import { Article } from './article.entity';
 import { ArticleService } from './article.service';
 import { ArticleInput } from './dto/article.dto';
@@ -20,12 +19,12 @@ export class ArticleResolver {
   // Resolve fields (extend fields on the entity)
   // -------------------------------------------------------------------------
 
-  @ResolveField(() => [Comment], {
-    description: 'Get the `Comments` for an `Article`',
-  })
-  async comments(@Parent() article: Article): Promise<Comment[]> {
-    return this.articleService.findComments(article.slug);
-  }
+  // @ResolveField(() => [Comment], {
+  //   description: 'Get the `Comments` for an `Article`',
+  // })
+  // async comments(@Parent() article: Article): Promise<Collection<Comment, unknown>> {
+  //   return this.articleService.findComments(article.slug);
+  // }
 
   // -------------------------------------------------------------------------
   // Queries (root queries for this entity, queries should not mutate data)

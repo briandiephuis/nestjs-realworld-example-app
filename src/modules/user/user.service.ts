@@ -70,8 +70,8 @@ export class UserService {
     return deletedUser;
   }
 
-  async findById(id: number): Promise<User> {
-    const user = await this.userRepository.findOne(id);
+  async findById(id: number, populate?: any[]): Promise<User> {
+    const user = await this.userRepository.findOne(id, populate);
 
     if (!user) {
       const errors = { User: ' not found' };
